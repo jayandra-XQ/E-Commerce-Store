@@ -2,19 +2,25 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { UserPlus, Mail, Lock, User, ArrowRight, Loader } from "lucide-react";
 import { motion } from "framer-motion";
+import { useUserStore } from "../stores/useUserStore";
+import toast from "react-hot-toast";
 
 
 const SignUpPage = () => {
-  const loading = false
+
 	const [formData, setFormData] = useState({
 		name: "",
 		email: "",
 		password: "",
 		confirmPassword: "",
 	});
+
+	const { signup, loading } = useUserStore()
 	const handleSubmit = (e) => {
 		e.preventDefault();
-    // perform form validation and send data to the server
+		// perform form validation and send data to the server
+		signup(formData)
+		toast.success("signup successfull")
 
 	};
 
