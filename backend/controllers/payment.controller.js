@@ -33,7 +33,7 @@ export const createCheckoutSession = async (req, res) => {
 		if (couponCode) {
 			coupon = await Coupon.findOne({ code: couponCode, userId: req.user._id, isActive: true });
 			if (coupon) {
-				totalAmount -= Math.round((totalAmount * coupon.discountPrecentage) / 100);
+				totalAmount -= Math.round((totalAmount * coupon.discountPercentage) / 100);
 			}
 		}
 
@@ -46,7 +46,7 @@ export const createCheckoutSession = async (req, res) => {
 			discounts: coupon
 				? [
 						{
-							coupon: await createStripeCoupon(coupon.discountPrecentage),
+							coupon: await createStripeCoupon(coupon.discountPercentage),
 						},
 				  ]
 				: [],
