@@ -80,5 +80,17 @@ export const useProductStore = create((set) => ({
       toast.error("Error toggling featured product");
       set({ loading: false });
     }
+  },
+
+  fetchFeaturedProducts: async () => {
+    set({ loading: true });
+
+    try {
+      const res = await axios.get(`/products/featured`);
+      set({ products: res.data, loading: false });
+    } catch (error) {
+      toast.error("Error fetching featured products");
+      set({ loading: false });
+    }
   }
 }))
